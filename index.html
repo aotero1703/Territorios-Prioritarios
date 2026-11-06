@@ -1,0 +1,63 @@
+<!doctype html><html lang="es"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="stylesheet" href="styles/tablero.css"><title>Territorios Prioritarios · Observatorio Nacional</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<link rel="stylesheet" href="styles/fonts.css">
+<link rel="icon" href="assets/logo-2.png"></head><body>
+
+<div class="top"><div class="wrap"><img src="assets/logo-1.png" alt="Ministerio de la Mujer y Poblaciones Vulnerables"><img class="on" src="assets/logo-2.png" alt="Observatorio Nacional de la Violencia contra las Mujeres y los Integrantes del Grupo Familiar"></div></div>
+
+<section class="hero">
+  <svg class="mark" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M150 38 A80 80 0 1 0 150 162" fill="none" stroke="#5d6fb8" stroke-width="22" stroke-linecap="butt"/>
+    <path d="M138 62 A52 52 0 1 0 138 138" fill="none" stroke="#7ec4d4" stroke-width="18"/>
+    <circle cx="100" cy="100" r="24" fill="#f2b45a" stroke="#e53a2f" stroke-width="7"/>
+  </svg>
+  <div class="wrap">
+    <span class="badge">Prototipo · uso interno</span>
+    <h1>Territorios Prioritarios</h1>
+    <p>¿En qué provincias conviene intervenir primero? Explora los casos atendidos por los Centros Emergencia Mujer y Familia en 2025 y de enero a agosto de 2026. Explora cada año por departamento, provincia, tipo de violencia y periodo; revisa las limitaciones antes de comparar.</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="period-filter"><label for="year"><b>Año</b></label><select id="year" aria-label="Año"><option value="2026">2026 (enero–agosto)</option><option value="2025">2025</option></select><label for="quarter"><b>Periodo</b></label><select id="quarter" aria-label="Periodo"></select><label for="dep"><b>Departamento</b></label><select id="dep" aria-label="Departamento"><option value="">Todo el Perú</option></select><span>El año, el periodo y el departamento cambian todas las cifras, el mapa y el ranking.</span></div><p class="note" id="yearNote" hidden style="margin:-20px 0 0">2026 es información preliminar de enero a agosto (8 meses), ubicada por provincia de ocurrencia. No compares sus cifras o tasas directamente con el año completo 2025.</p><div class="types" id="types" role="group" aria-label="Tipo de violencia"></div>
+  <section class="demog-charts" aria-label="Desagregación por sexo y grupo etario"><div class="card demog-card"><h2>Casos por sexo</h2><p class="demog-context" id="sexContext"></p><div id="sexBars" class="demog-bars"></div></div><div class="card demog-card"><h2>Casos por grupo etario</h2><p class="demog-context" id="ageContext"></p><div id="ageBars" class="demog-bars"></div></div></section>
+
+  <div class="grid">
+    <div class="card">
+      <div class="head"><h2 id="mapTitle"></h2>
+        <span><button type="button" class="reset" id="reset" hidden>Ver todo el Perú</button></span></div>
+      <div class="legend-title">Nivel de prioridad territorial <span>(cuartiles de tasas positivas del periodo; no mide riesgo)</span></div>
+      <div class="legend" id="legend"></div>
+      <svg id="map" role="img" aria-label="Mapa de provincias del Perú coloreado por nivel de prioridad"></svg>
+    </div>
+    <div class="card ficha" id="ficha" aria-live="polite"></div>
+  </div>
+
+  <div class="card">
+    <div class="head"><h2 id="rankTitle">Provincias con mayor tasa de casos atendidos</h2><label for="metric">Ordenar por <select id="metric"><option value="rate">Tasa por 100 000 habitantes</option><option value="cases">Casos atendidos</option></select></label></div>
+    <p class="rank-sub" id="rankSub"></p>
+    <div class="zooms" id="rank"></div>
+  </div>
+<section class="card" aria-labelledby="methodTitle"><h2 id="methodTitle">Notas metodológicas y fuentes</h2>
+<p>Los casos CEM/CEMF representan atención registrada, no personas únicas, incidencia ni prevalencia. Cambios en acceso a servicios y registro afectan las cifras. El cambio de nombre del servicio no demuestra equivalencia estadística.</p>
+<p><b>Territorio y periodo:</b> el tablero recuperado identifica 2025 por domicilio y 2026 por ocurrencia. No hay una serie provincial homogénea: tampoco comparar enero–diciembre con enero–agosto ni julio–septiembre con julio–agosto. No se anualizan cifras ni se calculan variaciones interanuales.</p>
+<p><b>Denominador:</b> población total provincial de ambos sexos y todas las edades, proyectada por INEI al 30 de junio del mismo año (Cuadro 01, columnas 2025 y 2026; información referencial). Tasa = casos del periodo / población provincial × 100 000. La tasa por ocurrencia usa población residente como referencia y puede incluir personas de otras provincias.</p>
+<p>Sexo y edad muestran conteos, nunca tasas específicas: no se dispone aquí de denominadores compatibles por sexo y edad. Los cuartiles del mapa se recalculan sobre tasas provinciales positivas de todo el país para cada filtro; no son umbrales oficiales de prioridad. El ranking muestra las diez primeras provincias y permite ordenar por casos o tasas.</p>
+<p><b>Reserva y cobertura:</b> cifras de 1 a 4 se muestran como «Menos de 5» y no se usan en tasas ni ranking. Los valores reservados no son ceros. Hay 35 casos de 2025 y 36 de 2026 sin ubicación provincial; los totales nacionales pueden diferir de la suma de provincias.</p>
+<p><b>Procedencia:</b> agregados y cartografía recuperados del <a href="https://github.com/aotero1703/mapa-evidencias-mimp/tree/47289a978b3072d746e15424bd720c1da5812841/territorios">tablero original</a>. Se conservaron conteos, sexo, cinco grupos de edad, cuatro tipos, periodos, riesgo severo y tentativas. Las bases individuales y diccionarios originales no estaban en Git: no se certifica la equivalencia de variables de registro entre años. El acceso al banco de datos oficial devolvió 503/502 durante la revisión.</p>
+<p>Fuentes: <a href="https://www.gob.pe/institucion/inei/informes-publicaciones/6894980-peru-">INEI: proyecciones 2018–2026</a> · <a href="https://portalestadistico.warminan.gob.pe/cem-casos-tipo-de-violencia/">Warmi Ñan: casos por tipo</a> · <a href="docs/METODOLOGIA.md">Detalle de variables y limitaciones</a> · <a href="data/poblacion.csv">Denominadores provinciales CSV</a>. Revisión: 6 de noviembre de 2026.</p>
+</section></main>
+
+<footer><div class="wrap">
+  <div class="chips"><span><img src="assets/logo-2.png" alt="Observatorio Nacional de la Violencia contra las Mujeres y los Integrantes del Grupo Familiar"></span><span><img src="assets/logo-1.png" alt="Ministerio de la Mujer y Poblaciones Vulnerables"></span></div>
+  <p><b>Observatorio Nacional de la Violencia contra las Mujeres y los Integrantes del Grupo Familiar</b> · Ministerio de la Mujer y Poblaciones Vulnerables</p>
+  <p>observatorioviolencia@mimp.gob.pe · Central (01) 626-1600, anexo 8503</p>
+  <p>Fuente: Registro de casos del Centro Emergencia Mujer y Familia / SGIC / UPPM / Warmi Ñan / MIMP, enero–diciembre 2025 y enero–agosto 2026 (preliminar). En 2025 los casos se ubican por provincia de domicilio de la persona usuaria; en 2026, por provincia de ocurrencia de la violencia. Tasas calculadas con la población INEI del mismo año, proyectada al 30 de junio. No son tasas anualizadas ni estimaciones de prevalencia. Datos agregados por provincia. Para proteger la identidad de las personas, las cifras menores a 5 se muestran como «menos de 5».</p>
+</div></footer>
+<div class="tip" id="tip" hidden></div>
+
+
+
+
+<script src="assets/d3.min.js"></script><script type="module" src="js/app.js"></script></body></html>

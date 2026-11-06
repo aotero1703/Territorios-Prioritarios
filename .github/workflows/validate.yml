@@ -1,0 +1,23 @@
+name: Validar tablero
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: pip install -r requirements-dev.txt
+      - run: python scripts/import_population.py && git diff --exit-code -- data/poblacion.json data/poblacion.csv
+      - run: python -m unittest discover -s tests -v
+      - run: npm ci
+      - run: npm test
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
